@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import ui.PaintForm;
 
 public class CPanel extends JPanel {
-	public CPanel(PaintForm paintForm) {
+	public CPanel() {
 		super();
 		this.setSize(new Dimension(800, 600));
 	}
