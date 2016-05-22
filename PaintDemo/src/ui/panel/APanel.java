@@ -8,9 +8,7 @@ import ui.PaintForm;
 
 public class APanel extends JPanel {
 	
-	
 	public APanel() {
-		super();
 		this.setSize(new Dimension(800, 600));
 	}
 

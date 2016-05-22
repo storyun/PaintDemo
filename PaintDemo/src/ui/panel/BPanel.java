@@ -10,8 +10,7 @@ public class BPanel extends JPanel {
 		this.setSize(new Dimension(800, 600));
 		setLayout(new BorderLayout(0, 0));
 		
-		JButton btnDfdf = new JButton("DFDF");
-		add(btnDfdf, BorderLayout.CENTER);
+		
 	}
 
 }
