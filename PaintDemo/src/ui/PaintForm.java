@@ -18,8 +18,8 @@ public class PaintForm extends JFrame implements MouseListener {
 	
 	public PaintForm() {
 		super();
-		this.setSize(new Dimension(850, 650));
-		getContentPane().setLayout(new GridLayout(3, 0, 0, 0));
+		this.setSize(new Dimension(2400, 600));
+		getContentPane().setLayout(new GridLayout(0, 3, 0, 0));
 		
 		APanel panel_1 = new APanel();
 		getContentPane().add(panel_1);
