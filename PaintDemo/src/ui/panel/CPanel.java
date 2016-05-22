@@ -53,6 +53,7 @@ public class CPanel extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if( e.getSource() == colorButton) {
 			currentColor = JColorChooser.showDialog(this, "색을 선택하세요", currentColor);
+			
 			int reserveColor = currentColor.getRGB();
 			reserveColor ^= 0x00FFFFFF;
 			colorButton.setForeground(new Color(reserveColor));
