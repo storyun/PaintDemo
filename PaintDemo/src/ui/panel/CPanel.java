@@ -11,8 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class CPanel extends JPanel {
-	public CPanel(PaintForm paintForm) {
-		super();
+	public CPanel() {
 		this.setSize(new Dimension(800, 600));
 		setLayout(null);
 		
