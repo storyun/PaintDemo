@@ -6,11 +6,21 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 
+import ui.panel.CPanel;
+
+import java.awt.CardLayout;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 public class PaintForm extends JFrame implements MouseListener {
+	
+	private CPanel cPanel;
 	
 	public PaintForm() {
 		super();
 		this.setSize(new Dimension(850, 650));
+		getContentPane().setLayout(new CardLayout(0, 0));
+	
 	}
 
 	@Override
