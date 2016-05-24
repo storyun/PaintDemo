@@ -18,6 +18,8 @@ import java.awt.CardLayout;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JList;
+import javax.swing.JDesktopPane;
 
 public class PaintForm extends JFrame implements ActionListener {
 	
@@ -31,6 +33,8 @@ public class PaintForm extends JFrame implements ActionListener {
 	private JMenuItem menuItemA;
 	private JMenuItem menuItemB;
 	private JMenuItem menuItemC;
+	private JMenuItem menuItem;
+	private JMenuItem menuItem_1;
 	
 	public PaintForm() {
 		super();
@@ -42,6 +46,15 @@ public class PaintForm extends JFrame implements ActionListener {
 		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("열기");
+		mnFile.add(mntmNewMenuItem);
+		
+		menuItem = new JMenuItem("새 파일");
+		mnFile.add(menuItem);
+		
+		menuItem_1 = new JMenuItem("저장하기");
+		mnFile.add(menuItem_1);
 		
 		JMenu mnSelect = new JMenu("Select");
 		menuBar.add(mnSelect);
@@ -60,7 +73,7 @@ public class PaintForm extends JFrame implements ActionListener {
 		menuItemC.addActionListener(this);
 		
 		cardLayout = new CardLayout(0,0);
-		this.setLayout(cardLayout);
+		getContentPane().setLayout(cardLayout);
 		
 		aPanel = new APanel();
 		bPanel = new BPanel();
