@@ -35,6 +35,7 @@ import javax.swing.JSpinner;
 
 public class CPanel extends JPanel implements ActionListener, MouseInputListener {
 	
+	// UI
 	private MyCanvas canvas;
 	
 	private JButton colorButton;
@@ -44,11 +45,15 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 	private JToggleButton lineButton;
 	private JToggleButton curveButton;
 	private ButtonGroup buttonGroup;
+	private JToggleButton tglbtnSelect;
+	private JButton btnClear;
 	
 	private Color currentColor;
 	private float currentStroke;
 	private int drawID;
+	private boolean isSelect;
 	
+	// 변수
 	private Point startPoint;
 	private Point endPoint;
 	private model.Rectangle rectangle;
@@ -131,6 +136,17 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		borderSpinner.setModel(new SpinnerNumberModel((float)1, (float)0, (float)10, (float)1));
 		add(borderSpinner);
 		
+		tglbtnSelect = new JToggleButton("Select");
+		tglbtnSelect.setBounds(677, 205, 117, 29);
+		buttonGroup.add(tglbtnSelect);
+		tglbtnSelect.addActionListener(this);
+		add(tglbtnSelect);
+		
+		btnClear = new JButton("Clear");
+		btnClear.setBounds(677, 246, 117, 29);
+		btnClear.addActionListener(this);
+		add(btnClear);
+		
 		this.setVisible(true);
 	}
 
@@ -146,16 +162,29 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 			colorButton.setBackground(currentColor);
 		}
 		else if(e.getSource() == rectangleButton) {
+			isSelect = false;
 			drawID = Shape.RECTANGLE;
 		}
 		else if(e.getSource() == circleButton) {
+			isSelect = false;
 			drawID = Shape.CIRCLE;
 		}
 		else if(e.getSource() == lineButton) {
+			isSelect = false;
 			drawID = Shape.LINE;
 		}
 		else if(e.getSource() == curveButton) {
+			isSelect = false;
 			drawID = Shape.CURVE;
+		}
+		else if(e.getSource() == tglbtnSelect) {
+			isSelect = true;
+		}
+		else if(e.getSource() == btnClear) {
+			shapeList = new ArrayList<Shape>();
+			startPoint = new Point();
+			endPoint = new Point();
+			canvas.repaint();
 		}
 	}
 
