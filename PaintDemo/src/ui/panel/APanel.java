@@ -18,11 +18,7 @@ public class APanel extends JPanel{
 	Point startP= null;
 	Point lastP = null;
 	
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);	//부모페인트
-		
 	
-	}
 	
 	public APanel() {
 		this.setSize(new Dimension(800, 600));

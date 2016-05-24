@@ -18,6 +18,12 @@ import java.awt.CardLayout;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JList;
+import javax.swing.JDesktopPane;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
 
 public class PaintForm extends JFrame implements ActionListener {
 	
@@ -31,6 +37,8 @@ public class PaintForm extends JFrame implements ActionListener {
 	private JMenuItem menuItemA;
 	private JMenuItem menuItemB;
 	private JMenuItem menuItemC;
+	private JMenuItem menuItem;
+	private JMenuItem menuItem_1;
 	
 	public PaintForm() {
 		super();
@@ -42,6 +50,15 @@ public class PaintForm extends JFrame implements ActionListener {
 		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("열기");
+		mnFile.add(mntmNewMenuItem);
+		
+		menuItem = new JMenuItem("새 파일");
+		mnFile.add(menuItem);
+		
+		menuItem_1 = new JMenuItem("저장하기");
+		mnFile.add(menuItem_1);
 		
 		JMenu mnSelect = new JMenu("Select");
 		menuBar.add(mnSelect);
@@ -55,12 +72,21 @@ public class PaintForm extends JFrame implements ActionListener {
 		menuItemC = new JMenuItem("C");
 		mnSelect.add(menuItemC);
 		
+		JMenu mnSimulation = new JMenu("Simulation");
+		menuBar.add(mnSimulation);
+		
+		JMenuItem mntmPlay = new JMenuItem("Play");
+		mnSimulation.add(mntmPlay);
+		
+		JMenuItem mntmPause = new JMenuItem("Pause");
+		mnSimulation.add(mntmPause);
+		
 		menuItemA.addActionListener(this);
 		menuItemB.addActionListener(this);
 		menuItemC.addActionListener(this);
 		
 		cardLayout = new CardLayout(0,0);
-		this.setLayout(cardLayout);
+		getContentPane().setLayout(cardLayout);
 		
 		aPanel = new APanel();
 		bPanel = new BPanel();
@@ -84,5 +110,22 @@ public class PaintForm extends JFrame implements ActionListener {
 		else if(e.getActionCommand() == menuItemC.getText()) {
 			cardLayout.show(this.getContentPane(), "C");
 		}
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }
