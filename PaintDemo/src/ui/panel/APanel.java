@@ -8,22 +8,40 @@ import java.awt.Point;
 import javax.swing.JPanel;
 
 import ui.PaintForm;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-public class APanel extends JPanel{
+import javax.swing.JButton;
+import javax.swing.event.MouseInputListener;
+
+import model.Circle;
+import model.Curve;
+import model.Line;
+import model.Shape;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+public class APanel extends JPanel implements ActionListener, MouseInputListener{
 	Point startP= null;
 	Point lastP = null;
+	private model.Rectangle rectangle;
+	private Circle circle;
+	private Line line;
+	private Curve curve;
 	
+	private ArrayList<Shape> shapeList;	
 	
 	
 	public APanel() {
 		this.setSize(new Dimension(800, 600));
 		setLayout(null);
-		
+		shapeList=null;
 		testCanvas canvas = new testCanvas();
 		canvas.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -31,14 +49,103 @@ public class APanel extends JPanel{
 				canvas.x=e.getX();
 				canvas.y=e.getY();
 				canvas.repaint();
-				System.out.println(e.getX());
+				
 			}
 		});
 		
 		
-		canvas.setBounds(119, 114, 560, 350);		
+		canvas.setBounds(119, 220, 560, 350);		
 		canvas.setBackground(Color.white);
 		add(canvas);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(157, 65, 482, 112);
+		add(panel);
+		panel.setLayout(null);
+		
+		JButton btnCircle = new JButton("ㅇ");
+		btnCircle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCircle.setBounds(25, 43, 82, 23);
+		panel.add(btnCircle);
+		
+		JButton button_1 = new JButton("ㅁ");
+		button_1.setBounds(118, 43, 97, 23);
+		panel.add(button_1);
+		
+		JButton button_2 = new JButton("New button");
+		button_2.setBounds(220, 43, 97, 23);
+		panel.add(button_2);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(329, 43, 97, 23);
+		panel.add(btnNewButton);
+		
+		
+	}
+
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		
 		
 	}
