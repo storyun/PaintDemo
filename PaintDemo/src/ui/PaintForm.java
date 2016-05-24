@@ -20,6 +20,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JDesktopPane;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
 
 public class PaintForm extends JFrame implements ActionListener {
 	
@@ -68,6 +72,15 @@ public class PaintForm extends JFrame implements ActionListener {
 		menuItemC = new JMenuItem("C");
 		mnSelect.add(menuItemC);
 		
+		JMenu mnSimulation = new JMenu("Simulation");
+		menuBar.add(mnSimulation);
+		
+		JMenuItem mntmPlay = new JMenuItem("Play");
+		mnSimulation.add(mntmPlay);
+		
+		JMenuItem mntmPause = new JMenuItem("Pause");
+		mnSimulation.add(mntmPause);
+		
 		menuItemA.addActionListener(this);
 		menuItemB.addActionListener(this);
 		menuItemC.addActionListener(this);
@@ -97,5 +110,22 @@ public class PaintForm extends JFrame implements ActionListener {
 		else if(e.getActionCommand() == menuItemC.getText()) {
 			cardLayout.show(this.getContentPane(), "C");
 		}
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }
