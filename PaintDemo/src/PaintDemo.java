@@ -10,6 +10,7 @@ public class PaintDemo {
 		PaintForm pForm = new PaintForm();
 		pForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pForm.setVisible(true);
+		pForm.setResizable(false);
 	}
 
 }
