@@ -5,12 +5,12 @@ import java.awt.Point;
 
 public class Line extends Shape {
 	
-	public Line(Point startPoint, Point endPoint, Color color, int border) {
+	public Line(Point startPoint, Point endPoint, Color color, float stroke) {
 		setId(Shape.LINE); 		// 직
 		setStartPoint(startPoint);
 		setEndPoint(endPoint);
 		setColor(color);
-		setBorder(border);
+		setStroke(stroke);
 	}
 	
 	@Override

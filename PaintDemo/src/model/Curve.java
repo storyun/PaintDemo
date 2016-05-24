@@ -8,15 +8,13 @@ public class Curve extends Shape{
 	
 	private ArrayList<Point> pointList;
 	
-	public Curve(Point startPoint, Color color, int border) {
+	public Curve(ArrayList<Point> pointList, Color color, float stroke) {
 		
 		setId(Shape.CURVE); 		//곡선 
-		setStartPoint(startPoint);
 		setColor(color);
-		setBorder(border);
+		setStroke(stroke);
 		
-		pointList = new ArrayList<Point>();
-		pointList.add(startPoint);
+		this.pointList = pointList;
 	}
 
 	@Override
@@ -30,14 +28,14 @@ public class Curve extends Shape{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	// 곡선 점 계속 추가하는 함
-	public void addPoint(Point point, boolean isEnd) {
-		pointList.add(point);
-		
-		// 마지막 입력 값이면 끝점에 표기
-		if(isEnd) {
-			setEndPoint(point);
-		} 
+
+	public ArrayList<Point> getPointList() {
+		return pointList;
 	}
+
+	public void setPointList(ArrayList<Point> pointList) {
+		this.pointList = pointList;
+	}
+	
+	
 }

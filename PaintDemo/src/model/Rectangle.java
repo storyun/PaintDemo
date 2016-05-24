@@ -12,12 +12,12 @@ public class Rectangle extends Shape {
 		
 	}
 	
-	public Rectangle(Point startPoint, Point endPoint, Color color, int border) {
+	public Rectangle(Point startPoint, Point endPoint, Color color, float stroke) {
 		setId(Shape.RECTANGLE); 		// 사각형
 		setStartPoint(startPoint);
 		setEndPoint(endPoint);
 		setColor(color);
-		setBorder(border);
+		setStroke(stroke);
 		
 		// width 구하기
 		if( startPoint.getX() > endPoint.getX() ) {

@@ -1,7 +1,9 @@
 package model;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public abstract class Shape {
 	public final static int RECTANGLE = 1;
@@ -13,7 +15,7 @@ public abstract class Shape {
 	private Point startPoint;
 	private Point endPoint;
 	private Color color;
-	private int border;
+	private BasicStroke stroke;
 	
 	public int getWidth() {
 		int width = 0;
@@ -38,14 +40,14 @@ public abstract class Shape {
 	public Color getColor() {
 		return color;
 	}
-	public int getBorder() {
-		return border;
+	public BasicStroke getStroke() {
+		return stroke;
 	}
 	protected void setColor(Color color) {
 		this.color = color;
 	}
-	protected void setBorder(int border) {
-		this.border = border;
+	protected void setStroke(float stroke) {
+		this.stroke = new BasicStroke(stroke);
 	}
 	protected void setStartPoint(Point startPoint) {
 		this.startPoint = startPoint;
@@ -58,6 +60,13 @@ public abstract class Shape {
 	}
 	public Point getEndPoint() {
 		return endPoint;
+	}
+	public ArrayList<Point> getPointList() {
+		ArrayList<Point> pointList = null;
+		return pointList;
+	}
+
+	public void setPointList(ArrayList<Point> pointList) {
 	}
 	
 	

@@ -1,5 +1,6 @@
 package ui.panel;
 
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
@@ -10,6 +11,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.ColorConvertOp;
@@ -20,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.MouseInputListener;
 
 import model.Circle;
@@ -42,7 +46,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 	private ButtonGroup buttonGroup;
 	
 	private Color currentColor;
-	private int currentBorder;
+	private float currentStroke;
 	private int drawID;
 	
 	private Point startPoint;
@@ -51,6 +55,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 	private Circle circle;
 	private Line line;
 	private Curve curve;
+	private ArrayList<Point> curvePoint;
 	
 	private ArrayList<Shape> shapeList;
 	
@@ -58,12 +63,15 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		super();
 		this.setSize(new Dimension(800, 600));
 		setLayout(null);
+		
+		// 변수 초기
 		currentColor = Color.BLACK;
 		drawID = Shape.RECTANGLE;
 		startPoint = new Point();
 		endPoint = new Point();
 		shapeList = new ArrayList<Shape>();
 		
+		// UI
 		canvas = new MyCanvas();
 		canvas.setBackground(Color.WHITE);
 		canvas.setBounds(10, 10, 661, 580);
@@ -120,6 +128,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		
 		borderSpinner = new JSpinner();
 		borderSpinner.setBounds(721, 46, 73, 26);
+		borderSpinner.setModel(new SpinnerNumberModel((float)1, (float)0, (float)10, (float)1));
 		add(borderSpinner);
 		
 		this.setVisible(true);
@@ -162,6 +171,11 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		startPoint = new Point();
 		endPoint = new Point();
 		startPoint.setLocation(e.getX(), e.getY());
+		
+		if(drawID == Shape.CURVE) {
+			curvePoint = new ArrayList<Point>();
+			curvePoint.add(startPoint);
+		}
 	}
 
 	@Override
@@ -171,20 +185,25 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		canvas.repaint();
 		
 		if(drawID == Shape.RECTANGLE) {
-			rectangle = new model.Rectangle(startPoint, endPoint, currentColor, currentBorder);
+			if(startPoint.getX() > endPoint.getX() && startPoint.getY() > endPoint.getY() ) return;
+			
+			rectangle = new model.Rectangle(startPoint, endPoint, currentColor, currentStroke);
 			shapeList.add(rectangle);
 		}
 		else if(drawID == Shape.CIRCLE) {
-			circle = new Circle(startPoint, endPoint, currentColor, currentBorder);
+			if(startPoint.getX() > endPoint.getX() && startPoint.getY() > endPoint.getY() ) return;
+			
+			circle = new Circle(startPoint, endPoint, currentColor, currentStroke);
 			shapeList.add(circle);
 		}
 		else if(drawID == Shape.LINE) {
-			line = new Line(startPoint, endPoint, currentColor, currentBorder);
+			line = new Line(startPoint, endPoint, currentColor, currentStroke);
 			shapeList.add(line);
 			
 		}
 		else if(drawID == Shape.CURVE) {
-			
+			curve = new Curve(curvePoint, currentColor, currentStroke);
+			shapeList.add(curve);
 		}
 	}
 
@@ -204,6 +223,12 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
 		endPoint.setLocation(e.getX(), e.getY());
+		
+		if(drawID == Shape.CURVE) {
+			curvePoint.add(endPoint);
+			endPoint = new Point();
+		}
+		
 		canvas.repaint();
 	}
 
@@ -223,24 +248,28 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		public void paint(Graphics g) {
 			// TODO Auto-generated method stub
 			super.paint(g);
-			g = canvas.getGraphics();
+			Graphics2D g2 = (Graphics2D)canvas.getGraphics();
 			
 			// 이전까지 그렸던 도형 그림
 			for(int i=0; i<shapeList.size(); i++) {
 				Shape s = shapeList.get(i);
-				g.setColor(s.getColor());
-				
+				g2.setColor(s.getColor());
+				g2.setStroke(s.getStroke());
 				if(s.getId() == Shape.RECTANGLE) {
-					g.drawRect(s.getStartPoint().x, s.getStartPoint().y, s.getWidth(), s.getHeight());
+					g2.drawRect(s.getStartPoint().x, s.getStartPoint().y, s.getWidth(), s.getHeight());
 				}
 				else if(s.getId() == Shape.CIRCLE) {
-					g.drawOval(s.getStartPoint().x, s.getStartPoint().y, s.getWidth(), s.getHeight());
+					g2.drawOval(s.getStartPoint().x, s.getStartPoint().y, s.getWidth(), s.getHeight());
 				}
 				else if(s.getId() == Shape.LINE) {
-					g.drawLine(s.getStartPoint().x, s.getStartPoint().y, s.getEndPoint().x, s.getEndPoint().y);
+					g2.drawLine(s.getStartPoint().x, s.getStartPoint().y, s.getEndPoint().x, s.getEndPoint().y);
 				}
 				else if(s.getId() == Shape.CURVE) {
-					
+					for(int j=0; j<s.getPointList().size()-1; j++) {
+						Point p1 = s.getPointList().get(j);
+						Point p2 = s.getPointList().get(j+1);
+						g2.drawLine((int)p1.getX(), (int)p1.getY(), (int)p2.getX(), (int)p2.getY());
+					}
 				}
 			}
 			
@@ -248,19 +277,26 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 			if( startPoint == null && endPoint == null ) return;
 			
 			// 현재 그리고 있는 도형 그림
-			g.setColor(currentColor);
+			g2.setColor(currentColor);
+			String s = borderSpinner.getValue().toString();
+			currentStroke = Float.valueOf(s).floatValue();
+			g2.setStroke(new BasicStroke(currentStroke));
 			if(drawID == Shape.RECTANGLE) {
 				
-				g.drawRect(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+				g2.drawRect(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
 			}
 			else if(drawID == Shape.CIRCLE) {
-				g.drawOval(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+				g2.drawOval(startPoint.x, startPoint.y, endPoint.x - startPoint.x, endPoint.y - startPoint.y);
 			}
 			else if(drawID == Shape.LINE) {
-				g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+				g2.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
 			}
 			else if(drawID == Shape.CURVE) {
-				
+				for(int i=0; i<curvePoint.size()-1; i++) {
+					Point p1 = curvePoint.get(i);
+					Point p2 = curvePoint.get(i+1);
+					g2.drawLine((int)p1.getX(), (int)p1.getY(), (int)p2.getX(), (int)p2.getY());
+				}
 			}
 		}
 	}

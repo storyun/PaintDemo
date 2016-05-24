@@ -8,13 +8,13 @@ public class Circle extends Shape {
 	private int width;
 	private int height;
 	
-	public Circle(Point startPoint, Point endPoint, Color color, int border) {
+	public Circle(Point startPoint, Point endPoint, Color color, float stroke) {
 		
 		setId(Shape.CIRCLE); 		// 
 		setStartPoint(startPoint);
 		setEndPoint(endPoint);
 		setColor(color);
-		setBorder(border);
+		setStroke(stroke);
 		
 		// width 구하기
 		if( startPoint.getX() > endPoint.getX() ) {
