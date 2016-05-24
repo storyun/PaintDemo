@@ -5,8 +5,12 @@ import java.awt.Point;
 
 public class Rectangle extends Shape {
 	
-	private double width;
-	private double height;
+	private int width;
+	private int height;
+	
+	public Rectangle() {
+		
+	}
 	
 	public Rectangle(Point startPoint, Point endPoint, Color color, int border) {
 		setId(Shape.RECTANGLE); 		// 사각형
@@ -17,18 +21,18 @@ public class Rectangle extends Shape {
 		
 		// width 구하기
 		if( startPoint.getX() > endPoint.getX() ) {
-			width = startPoint.getX() - endPoint.getX();
+			width = startPoint.x - endPoint.x;
 		}
 		else if( startPoint.getX() < endPoint.getX() ) {
-			width = endPoint.getX() - startPoint.getX();
+			width = endPoint.x - startPoint.x;
 		}
 		
 		// height 구하기
 		if( startPoint.getY() > endPoint.getY() ) {
-			height = startPoint.getY() - endPoint.getY();
+			height = startPoint.y - endPoint.y;
 		}
 		else if( startPoint.getX() < endPoint.getX() ) {
-			height = endPoint.getY() - startPoint.getY();
+			height = endPoint.y - startPoint.y;
 		}
 	}
 	 
@@ -45,11 +49,11 @@ public class Rectangle extends Shape {
 	}
 
 
-	public double getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
-	public double getHeight() {
+	public int getHeight() {
 		return height;
 	}
 	

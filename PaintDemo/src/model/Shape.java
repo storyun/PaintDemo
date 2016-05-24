@@ -15,6 +15,15 @@ public abstract class Shape {
 	private Color color;
 	private int border;
 	
+	public int getWidth() {
+		int width = 0;
+		return width;
+	}
+	public int getHeight() {
+		int height = 0;
+		return height;
+	}
+	
 	public abstract void move(Point point);		// 도형 움직이는 함수
 	public abstract void rotate();				// 도형 회전시키는 함수
 	
