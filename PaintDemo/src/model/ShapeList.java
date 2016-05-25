@@ -20,5 +20,19 @@ public class ShapeList implements Serializable{
 		this.shapeList = shapeList;
 	}
 	
+	public void clear() {
+		shapeList = new ArrayList<Shape>();
+	}
 	
+	public void addShape(Shape s) {
+		shapeList.add(s);
+	}
+	
+	public int size() {
+		return shapeList.size();
+	}
+	
+	public Shape get(int i) {
+		return shapeList.get(i);
+	}
 }

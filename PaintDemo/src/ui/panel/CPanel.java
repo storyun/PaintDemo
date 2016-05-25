@@ -30,6 +30,8 @@ import model.Circle;
 import model.Curve;
 import model.Line;
 import model.Shape;
+import model.ShapeList;
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 
@@ -63,6 +65,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 	private ArrayList<Point> curvePoint;
 	
 	private ArrayList<Shape> shapeList;
+	private ShapeList sList;
 	
 	public CPanel() {
 		super();
@@ -74,7 +77,8 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		drawID = Shape.RECTANGLE;
 		startPoint = new Point();
 		endPoint = new Point();
-		shapeList = new ArrayList<Shape>();
+//		shapeList = new ArrayList<Shape>();
+		sList = new ShapeList();
 		
 		// UI
 		canvas = new MyCanvas();
@@ -181,7 +185,8 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 			isSelect = true;
 		}
 		else if(e.getSource() == btnClear) {
-			shapeList = new ArrayList<Shape>();
+//			shapeList = new ArrayList<Shape>();
+			sList.clear();
 			startPoint = new Point();
 			endPoint = new Point();
 			
@@ -220,22 +225,26 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 			if(startPoint.getX() > endPoint.getX() && startPoint.getY() > endPoint.getY() ) return;
 			
 			rectangle = new model.Rectangle(startPoint, endPoint, currentColor, currentStroke);
-			shapeList.add(rectangle);
+//			shapeList.add(rectangle);
+			sList.addShape(rectangle);
 		}
 		else if(drawID == Shape.CIRCLE) {
 			if(startPoint.getX() > endPoint.getX() && startPoint.getY() > endPoint.getY() ) return;
 			
 			circle = new Circle(startPoint, endPoint, currentColor, currentStroke);
-			shapeList.add(circle);
+//			shapeList.add(circle);
+			sList.addShape(circle);
 		}
 		else if(drawID == Shape.LINE) {
 			line = new Line(startPoint, endPoint, currentColor, currentStroke);
-			shapeList.add(line);
+//			shapeList.add(line);
+			sList.addShape(line);
 			
 		}
 		else if(drawID == Shape.CURVE) {
 			curve = new Curve(curvePoint, currentColor, currentStroke);
-			shapeList.add(curve);
+//			shapeList.add(curve);
+			sList.addShape(curve);
 		}
 	}
 
@@ -283,8 +292,10 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 			Graphics2D g2 = (Graphics2D)canvas.getGraphics();
 			
 			// 이전까지 그렸던 도형 그림
-			for(int i=0; i<shapeList.size(); i++) {
-				Shape s = shapeList.get(i);
+//			for(int i=0; i<shapeList.size(); i++) {
+			for(int i=0; i<sList.size(); i++) {
+//				Shape s = shapeList.get(i);
+				Shape s = sList.get(i);
 				g2.setColor(s.getColor());
 				g2.setStroke(s.getStroke());
 				s.draw(g2);
