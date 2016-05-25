@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 public class Rectangle extends Shape {
@@ -55,6 +56,12 @@ public class Rectangle extends Shape {
 
 	public int getHeight() {
 		return height;
+	}
+
+	@Override
+	public void draw(Graphics2D g2) {
+		// TODO Auto-generated method stub
+		g2.drawRect(getStartPoint().x, getStartPoint().y, getWidth(), getHeight());
 	}
 	
 	

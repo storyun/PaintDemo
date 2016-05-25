@@ -184,7 +184,10 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 			shapeList = new ArrayList<Shape>();
 			startPoint = new Point();
 			endPoint = new Point();
+			
 			canvas.repaint();
+			
+			drawID = -1;
 		}
 	}
 
@@ -284,22 +287,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 				Shape s = shapeList.get(i);
 				g2.setColor(s.getColor());
 				g2.setStroke(s.getStroke());
-				if(s.getId() == Shape.RECTANGLE) {
-					g2.drawRect(s.getStartPoint().x, s.getStartPoint().y, s.getWidth(), s.getHeight());
-				}
-				else if(s.getId() == Shape.CIRCLE) {
-					g2.drawOval(s.getStartPoint().x, s.getStartPoint().y, s.getWidth(), s.getHeight());
-				}
-				else if(s.getId() == Shape.LINE) {
-					g2.drawLine(s.getStartPoint().x, s.getStartPoint().y, s.getEndPoint().x, s.getEndPoint().y);
-				}
-				else if(s.getId() == Shape.CURVE) {
-					for(int j=0; j<s.getPointList().size()-1; j++) {
-						Point p1 = s.getPointList().get(j);
-						Point p2 = s.getPointList().get(j+1);
-						g2.drawLine((int)p1.getX(), (int)p1.getY(), (int)p2.getX(), (int)p2.getY());
-					}
-				}
+				s.draw(g2);
 			}
 			
 			// 

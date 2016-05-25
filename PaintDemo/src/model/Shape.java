@@ -2,6 +2,7 @@ package model;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public abstract class Shape {
 		return height;
 	}
 	
+	public abstract void draw(Graphics2D g2);
 	public abstract void move(Point point);		// 도형 움직이는 함수
 	public abstract void rotate();				// 도형 회전시키는 함수
 	
