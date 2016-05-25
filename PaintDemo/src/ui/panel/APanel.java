@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 import ui.PaintForm;
 
@@ -27,6 +28,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+import javax.swing.JTextField;
+
 public class APanel extends JPanel implements ActionListener, MouseInputListener{
 	Point startP= null;
 	Point lastP = null;
@@ -34,7 +37,7 @@ public class APanel extends JPanel implements ActionListener, MouseInputListener
 	private Circle circle;
 	private Line line;
 	private Curve curve;
-	
+	private JToolBar toolbar;
 	private ArrayList<Shape> shapeList;	
 	
 	
@@ -54,34 +57,9 @@ public class APanel extends JPanel implements ActionListener, MouseInputListener
 		});
 		
 		
-		canvas.setBounds(119, 220, 560, 350);		
+		canvas.setBounds(154, 217, 560, 350);		
 		canvas.setBackground(Color.white);
 		add(canvas);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(157, 65, 482, 112);
-		add(panel);
-		panel.setLayout(null);
-		
-		JButton btnCircle = new JButton("ㅇ");
-		btnCircle.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnCircle.setBounds(25, 43, 82, 23);
-		panel.add(btnCircle);
-		
-		JButton button_1 = new JButton("ㅁ");
-		button_1.setBounds(118, 43, 97, 23);
-		panel.add(button_1);
-		
-		JButton button_2 = new JButton("New button");
-		button_2.setBounds(220, 43, 97, 23);
-		panel.add(button_2);
-		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(329, 43, 97, 23);
-		panel.add(btnNewButton);
 		
 		
 	}
@@ -149,22 +127,23 @@ public class APanel extends JPanel implements ActionListener, MouseInputListener
 		
 		
 	}
+	private class testCanvas extends Canvas{
+		int width=10;
+		int height=10;//선의 두께 
+		int x=-20; int y=-20;  //그리는 선의 위치 초기값을 마이너스로 잡아서 안보이게 처리
+		Color color=Color.black;
+		@Override
+		public void paint(Graphics g) {
+			// TODO Auto-generated method stub
+			g.setColor(color);
+			g.fillOval(x, y, width, height);
+		}
+		@Override
+		public void update(Graphics g) {
+			// TODO Auto-generated method stub
+			paint(g);
+		}
+	}
 }
 
-class testCanvas extends Canvas{
-	int width=10;
-	int height=10;//선의 두께 
-	int x=-20; int y=-20;  //그리는 선의 위치 초기값을 마이너스로 잡아서 안보이게 처리
-	Color color=Color.black;
-	@Override
-	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		g.setColor(color);
-		g.fillOval(x, y, width, height);
-	}
-	@Override
-	public void update(Graphics g) {
-		// TODO Auto-generated method stub
-		paint(g);
-	}
-}
+
