@@ -64,10 +64,10 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 	private Curve curve;
 	private ArrayList<Point> curvePoint;
 	
-	private ArrayList<Shape> shapeList;
+//	private ArrayList<Shape> shapeList;
 	private ShapeList sList;
 	
-	public CPanel() {
+	public CPanel(ShapeList shapeList) {
 		super();
 		this.setSize(new Dimension(800, 600));
 		setLayout(null);
@@ -78,7 +78,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		startPoint = new Point();
 		endPoint = new Point();
 //		shapeList = new ArrayList<Shape>();
-		sList = new ShapeList();
+		sList = shapeList;
 		
 		// UI
 		canvas = new MyCanvas();
@@ -191,8 +191,6 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 			endPoint = new Point();
 			
 			canvas.repaint();
-			
-			drawID = -1;
 		}
 	}
 
@@ -205,8 +203,6 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		startPoint = new Point();
-		endPoint = new Point();
 		startPoint.setLocation(e.getX(), e.getY());
 		
 		if(drawID == Shape.CURVE) {
@@ -246,6 +242,9 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 //			shapeList.add(curve);
 			sList.addShape(curve);
 		}
+		
+		startPoint = new Point();
+		endPoint = new Point();
 	}
 
 	@Override
@@ -327,5 +326,9 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 				}
 			}
 		}
+	}
+
+	public void canvasRepaint() {		
+		canvas.repaint();
 	}
 }

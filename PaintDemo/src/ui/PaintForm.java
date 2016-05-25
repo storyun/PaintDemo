@@ -20,8 +20,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JDesktopPane;
+import javax.swing.JFileChooser;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPopupMenu;
+
+import model.ShapeList;
+
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 
@@ -37,28 +41,36 @@ public class PaintForm extends JFrame implements ActionListener {
 	private JMenuItem menuItemA;
 	private JMenuItem menuItemB;
 	private JMenuItem menuItemC;
-	private JMenuItem menuItem;
-	private JMenuItem menuItem_1;
+	private JMenuItem mntmOpen;
+	private JMenuItem mntmNewFile;
+	private JMenuItem mntmSave;
+	
+	private JFileChooser fileChooser;
+	
+	private ShapeList shapeList;
 	
 	public PaintForm() {
 		super();
 		this.setSize(new Dimension(850, 650));
 
+		// 변수 초기화
+		shapeList = new ShapeList();
 		
+		// UI구성
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("열기");
-		mnFile.add(mntmNewMenuItem);
+		mntmOpen = new JMenuItem("열기");
+		mnFile.add(mntmOpen);
 		
-		menuItem = new JMenuItem("새 파일");
-		mnFile.add(menuItem);
+		mntmNewFile = new JMenuItem("새 파일");
+		mnFile.add(mntmNewFile);
 		
-		menuItem_1 = new JMenuItem("저장하기");
-		mnFile.add(menuItem_1);
+		mntmSave = new JMenuItem("저장하기");
+		mnFile.add(mntmSave);
 		
 		JMenu mnSelect = new JMenu("Select");
 		menuBar.add(mnSelect);
@@ -85,17 +97,26 @@ public class PaintForm extends JFrame implements ActionListener {
 		menuItemB.addActionListener(this);
 		menuItemC.addActionListener(this);
 		
+		mntmOpen.addActionListener(this);
+		mntmNewFile.addActionListener(this);
+		mntmSave.addActionListener(this);
+		
+		
 		cardLayout = new CardLayout(0,0);
 		getContentPane().setLayout(cardLayout);
 		
 		aPanel = new APanel();
 		bPanel = new BPanel();
-		cPanel = new CPanel();
+		cPanel = new CPanel(shapeList);
 		
 		getContentPane().add(aPanel, "A");
 		getContentPane().add(bPanel, "B");
 		getContentPane().add(cPanel, "C");
 		
+		fileChooser = new JFileChooser();
+		
+		
+		cardLayout.show(this.getContentPane(), "C");
 	}
 
 	@Override
@@ -109,6 +130,29 @@ public class PaintForm extends JFrame implements ActionListener {
 		}
 		else if(e.getActionCommand() == menuItemC.getText()) {
 			cardLayout.show(this.getContentPane(), "C");
+		}
+		else if(e.getActionCommand() == mntmSave.getText()) {
+			if( fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+				String path = "";
+				path = fileChooser.getSelectedFile().toString();
+				// 파일 저장함수 추가
+//				shapeList = fileHandler.saveFunction(path, shapeList);
+				cPanel.canvasRepaint();
+			}
+		}
+		else if(e.getActionCommand() == mntmOpen.getText()) {
+			if( fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+				String path = "";
+				path = fileChooser.getSelectedFile().toString();
+				// 파일 오픈 함수 추가 
+//				shapeList = fileHandler.openFunction(path);
+				cPanel.canvasRepaint();
+			}
+		}
+		else if(e.getActionCommand() == mntmNewFile.getText()) {
+			shapeList.clear();
+			
+			cPanel.canvasRepaint();
 		}
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
