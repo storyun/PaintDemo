@@ -287,6 +287,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		@Override
 		public void paint(Graphics g) {
 			
+			
 			// TODO Auto-generated method stub
 			super.paint(g);
 			Graphics2D g2 = (Graphics2D)canvas.getGraphics();
