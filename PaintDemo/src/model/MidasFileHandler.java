@@ -25,7 +25,7 @@ public class MidasFileHandler implements Serializable{
 	 public void ObjectSave(String path, Object object){
 		
 		try {
-			FileOutputStream f = new FileOutputStream("tmp");			
+			FileOutputStream f = new FileOutputStream(path);			
 			ObjectOutput s = new ObjectOutputStream(f);
 			s.writeObject(object);
 			s.flush();
@@ -37,13 +37,13 @@ public class MidasFileHandler implements Serializable{
 	 /**
 		 *  객체직렬화로 불러오기 함수.
 		 * @param path
-		 * @param Object
+		 * 
 		 * @return  Object
 		 */
-		 public Object ObjectLoad(String path, Object object){
+		 public Object ObjectLoad(String path){
 			
 			 try {       
-		           FileInputStream in = new FileInputStream("tmp"); 
+		           FileInputStream in = new FileInputStream(path); 
 		           ObjectInput s = new ObjectInputStream(in); 	           
 		           Object obj = s.readObject();
 		           return obj;
