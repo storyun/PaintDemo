@@ -155,7 +155,7 @@ public class PaintForm extends JFrame implements ActionListener {
 				// 파일 오픈 함수 추가 
 				shapeList = getfile(path);
 
-				cPanel.canvasRepaint();
+				cPanel.canvasRepaint(shapeList);
 			}
 		}
 		else if(e.getActionCommand() == mntmNewFile.getText()) {

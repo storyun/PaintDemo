@@ -4,9 +4,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Shape extends ShapeList{
+public abstract class Shape implements Serializable{
 	public final static int RECTANGLE = 1;
 	public final static int CIRCLE = 2;
 	public final static int LINE = 3;
@@ -16,7 +17,7 @@ public abstract class Shape extends ShapeList{
 	private Point startPoint;
 	private Point endPoint;
 	private Color color;
-	private transient BasicStroke stroke;
+	private BBasicStroke stroke;
 	
 	public int getWidth() {
 		int width = 0;
@@ -42,14 +43,14 @@ public abstract class Shape extends ShapeList{
 	public Color getColor() {
 		return color;
 	}
-	public BasicStroke getStroke() {
+	public BBasicStroke getStroke() {
 		return stroke;
 	}
 	protected void setColor(Color color) {
 		this.color = color;
 	}
 	protected void setStroke(float stroke) {
-		this.stroke = new BasicStroke(stroke);
+		this.stroke = new BBasicStroke(stroke);
 	}
 	protected void setStartPoint(Point startPoint) {
 		this.startPoint = startPoint;
