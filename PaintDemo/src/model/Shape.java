@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public abstract class Shape {
+public abstract class Shape extends ShapeList{
 	public final static int RECTANGLE = 1;
 	public final static int CIRCLE = 2;
 	public final static int LINE = 3;
@@ -16,7 +16,7 @@ public abstract class Shape {
 	private Point startPoint;
 	private Point endPoint;
 	private Color color;
-	private BasicStroke stroke;
+	private transient BasicStroke stroke;
 	
 	public int getWidth() {
 		int width = 0;
