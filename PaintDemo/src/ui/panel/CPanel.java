@@ -286,6 +286,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		
 		@Override
 		public void paint(Graphics g) {
+			
 			// TODO Auto-generated method stub
 			super.paint(g);
 			Graphics2D g2 = (Graphics2D)canvas.getGraphics();
@@ -295,6 +296,7 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 			for(int i=0; i<sList.size(); i++) {
 //				Shape s = shapeList.get(i);
 				Shape s = sList.get(i);
+				
 				g2.setColor(s.getColor());
 				g2.setStroke(s.getStroke());
 				s.draw(g2);
@@ -330,5 +332,6 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 
 	public void canvasRepaint() {		
 		canvas.repaint();
+		
 	}
 }

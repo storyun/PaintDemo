@@ -3,8 +3,9 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.io.Serializable;
 
-public class Rectangle extends Shape {
+public class Rectangle extends Shape implements Serializable{
 	
 	private int width;
 	private int height;
