@@ -150,7 +150,7 @@ public class PaintForm extends JFrame implements ActionListener {
 				handler.ObjectSave(path,shapeList);
 				
 
-				outfile(path,shapeList);
+//				outfile(path,shapeList);
 				cPanel.canvasRepaint();
 
 				
@@ -161,9 +161,9 @@ public class PaintForm extends JFrame implements ActionListener {
 				String path = "";
 				path = fileChooser.getSelectedFile().toString();
 				// 파일 오픈 함수 추가 
-				shapeList = getfile(path);
+//				shapeList = getfile(path);
 
-				cPanel.canvasRepaint(shapeList);
+//				cPanel.canvasRepaint(shapeList);
 
 //				shapeList = fileHandler.openFunction(path);
 				
@@ -172,7 +172,7 @@ public class PaintForm extends JFrame implements ActionListener {
 				for(int i=0 ; i<shapeList.size(); i++){
 					System.out.println(shapeList.get(i));
 				}
-				cPanel.canvasRepaint();
+				cPanel.canvasRepaint(shapeList);
 
 			}
 		}

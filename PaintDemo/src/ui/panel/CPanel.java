@@ -336,5 +336,9 @@ public class CPanel extends JPanel implements ActionListener, MouseInputListener
 		canvas.repaint();
 		
 	}
+	public void canvasRepaint(ShapeList shapeList) {
+		sList = shapeList;
+		canvas.repaint();
+	}
 
 }
