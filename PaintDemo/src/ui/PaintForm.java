@@ -191,8 +191,6 @@ public class PaintForm extends JFrame implements ActionListener {
 			ObjectInputStream oin = new ObjectInputStream(bin);
 			
 			sl = (ShapeList)oin.readObject();
-			
-			System.out.println(sl.get(1));
 			oin.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
