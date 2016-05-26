@@ -23,6 +23,7 @@ import model.Circle;
 import model.Curve;
 import model.Line;
 import model.Shape;
+import model.ShapeList;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -137,11 +138,13 @@ public class APanel extends JPanel implements ActionListener, MouseInputListener
 			// TODO Auto-generated method stub
 			g.setColor(color);
 			g.fillOval(x, y, width, height);
+			
 		}
 		@Override
 		public void update(Graphics g) {
 			// TODO Auto-generated method stub
 			paint(g);
+			
 		}
 	}
 }

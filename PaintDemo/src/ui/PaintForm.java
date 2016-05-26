@@ -1,7 +1,7 @@
 package ui;
 
 import java.awt.Dimension;
-import java.awt.Graphics2D;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,8 +20,11 @@ import javax.swing.JFrame;
 import ui.panel.APanel;
 import ui.panel.BPanel;
 import ui.panel.CPanel;
+
 import javax.swing.JMenuBar;
+
 import java.awt.CardLayout;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -31,11 +34,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPopupMenu;
 
+import model.MidasFileHandler;
 import model.Shape;
 import model.ShapeList;
 
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
+import java.util.logging.FileHandler;
 
 public class PaintForm extends JFrame implements ActionListener {
 	
@@ -141,11 +146,16 @@ public class PaintForm extends JFrame implements ActionListener {
 		}
 		else if(e.getActionCommand() == mntmSave.getText()) {
 			if( fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+				
 				String path = "";
 				path = fileChooser.getSelectedFile().toString();
 				// 파일 저장함수 추가
+//				shapeList = fileHandler.saveFunction(path, shapeList);
+				MidasFileHandler handler = new MidasFileHandler();
+				handler.ObjectSave(path,shapeList);
+				
 				outfile(path,shapeList);
-				cPanel.canvasRepaint();
+				
 			}
 		}
 		else if(e.getActionCommand() == mntmOpen.getText()) {

@@ -3,8 +3,9 @@ package model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.io.Serializable;
 
-public class Line extends Shape {
+public class Line extends Shape implements Serializable{
 	
 	public Line(Point startPoint, Point endPoint, Color color, float stroke) {
 		setId(Shape.LINE); 		// 직
