@@ -1,22 +1,11 @@
 package ui;
 
 import java.awt.Dimension;
-<<<<<<< HEAD
-=======
-import java.awt.Graphics2D;
->>>>>>> branch 'master' of https://github.com/storyun/PaintDemo.git
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import javax.swing.JFrame;
 
@@ -37,12 +26,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPopupMenu;
 
-<<<<<<< HEAD
 
 import model.MidasFileHandler;
-=======
-import model.Shape;
->>>>>>> branch 'master' of https://github.com/storyun/PaintDemo.git
 import model.ShapeList;
 
 import java.awt.Component;
@@ -68,6 +53,8 @@ public class PaintForm extends JFrame implements ActionListener {
 	private JFileChooser fileChooser;
 	
 	private ShapeList shapeList;
+	private MidasFileHandler handler = new MidasFileHandler();
+	
 	
 	public PaintForm() {
 		super();
@@ -157,14 +144,10 @@ public class PaintForm extends JFrame implements ActionListener {
 				String path = "";
 				path = fileChooser.getSelectedFile().toString();
 				// 파일 저장함수 추가
-<<<<<<< HEAD
 //				shapeList = fileHandler.saveFunction(path, shapeList);
-				MidasFileHandler handler = new MidasFileHandler();
+				
 				handler.ObjectSave(path,shapeList);
 				
-=======
-				outfile(path,shapeList);
->>>>>>> branch 'master' of https://github.com/storyun/PaintDemo.git
 				cPanel.canvasRepaint();
 				
 			}
@@ -174,8 +157,13 @@ public class PaintForm extends JFrame implements ActionListener {
 				String path = "";
 				path = fileChooser.getSelectedFile().toString();
 				// 파일 오픈 함수 추가 
-				shapeList = getfile(path);
-
+//				shapeList = fileHandler.openFunction(path);
+				
+				shapeList = (ShapeList) handler.ObjectLoad(path);
+				System.out.println(shapeList.size());
+				for(int i=0 ; i<shapeList.size(); i++){
+					System.out.println(shapeList.get(i));
+				}
 				cPanel.canvasRepaint();
 			}
 		}
@@ -185,41 +173,6 @@ public class PaintForm extends JFrame implements ActionListener {
 			cPanel.canvasRepaint();
 		}
 	}
-	
-	
-	public void outfile(String path, ShapeList sl)
-	{
-		try {
-			FileOutputStream fin = new FileOutputStream(path);
-			BufferedOutputStream bin = new BufferedOutputStream(fin);
-			ObjectOutputStream oin = new ObjectOutputStream(bin);
-			
-			oin.writeObject(sl);
-			
-			oin.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public ShapeList getfile(String path)
-	{
-		ShapeList sl = new ShapeList();
-		try {
-			FileInputStream fin = new FileInputStream(path);
-			BufferedInputStream bin = new BufferedInputStream(fin);
-			ObjectInputStream oin = new ObjectInputStream(bin);
-			
-			sl = (ShapeList)oin.readObject();
-			oin.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return sl;
-	}
-	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
